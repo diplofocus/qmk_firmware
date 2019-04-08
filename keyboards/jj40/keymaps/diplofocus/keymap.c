@@ -8,6 +8,12 @@ enum layers {
   _MOUSE
 };
 
+enum custom_keycodes {
+  DYNAMIC_MACRO_RANGE = SAFE_RANGE,
+};
+
+#include "dynamic_macro.h"
+
 enum tap_dance {
   TD_Q_MIN,
   TD_S_BSL,
@@ -85,19 +91,32 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define TDCSCL TD(TD_C_SCL)
 #define TDDCL TD(TD_D_CL)
 
+#define MAC_PL1 DYN_MACRO_PLAY1
+#define MAC_PL2 DYN_MACRO_PLAY2
+#define MAC_RC1 DYN_REC_START1
+#define MAC_RC2 DYN_REC_START2
+#define MAC_STP DYN_REC_STOP
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if (!process_record_dynamic_macro(keycode, record)) {
+    return false;
+  }
+  return true;
+}
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_ortho_4x12(
     KC_Q,    KC_D,    KC_R,   KC_W,    KC_B,    TDSTPR,  TDPLNX,  KC_J,    KC_F,    KC_U,    KC_P,    TDQMIN,
     SFTA,    GUIS,    ALTH,   CTLT,    KC_G,    KC_BRID, KC_BRIU, KC_Y,    CTLN,    ALTE,    GUIO,    SFTI,
     KC_Z,    KC_X,    KC_M,   KC_C,    KC_V,    KC_VOLD, KC_VOLU, KC_K,    KC_L,    TDCSCL,  TDDCL,   TDSLBS,
-    _______, _______, MSESC,  LOWDEL,  SHT_BSP, KC_TAB,  _______, KC_SPC,  RAISENT, FNTAB,   _______, _______
+    MAC_PL1, MAC_PL2, MSESC,  LOWDEL,  SHT_BSP, KC_TAB,  MAC_STP, KC_SPC,  RAISENT, FNTAB,   MAC_RC1, MAC_RC2
   ),
 
   [_LOWER] = LAYOUT_ortho_4x12(
     KC_GRV,  _______, KC_LPRN, KC_RPRN, _______, _______, _______, _______, KC_7,   KC_8,    KC_9,    KC_EQL,
-    TDLCCA,  KC_LWIN, ALLP,    SFRP,    KC_TAB,  _______, _______, _______, SF4,    AL5,     GUI6,    CMIN,
+    TDLCCA,  KC_LWIN, KC_LBRC, KC_RBRC, KC_TAB,  _______, _______, _______, KC_4,   KC_5,    KC_6,    CMIN,
     CZ,      CX,      CC,      KC_PSCR, CV,      _______, _______, _______, KC_1,   KC_2,    KC_3,    KC_SLSH,
-    _______, _______, _______, _______, _______, _______, _______, _______, KC_0,   _______, KC_DOT,  _______
+    _______, _______, _______, _______, _______, _______, _______, _______, KC_0,   KC_DOT,  _______, _______
   ),
 
   [_RAISE] = LAYOUT_ortho_4x12(
