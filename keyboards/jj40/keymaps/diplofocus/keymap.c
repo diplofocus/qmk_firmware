@@ -1,12 +1,13 @@
 #include QMK_KEYBOARD_H
 
 enum layers {
+  _WRKMAN,
   _QWERTY,
-  _STENO,
   _LOWER,
   _RAISE,
   _FUNCT,
-  _MOUSE
+  _MOUSE,
+  _LAYOUT
 };
 
 enum custom_keycodes {
@@ -62,7 +63,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define SFTT     SFT_T(KC_T)
 #define SFTN     SFT_T(KC_N)
 
-#define TGSTENO  TO(_STENO)
 
 // Petar
 #define GUIS GUI_T(KC_S)
@@ -73,6 +73,19 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define SFTA SFT_T(KC_A)
 #define CTLT CTL_T(KC_T)
 #define CTLN CTL_T(KC_N)
+
+#define GUIS GUI_T(KC_S)
+#define ALTD ALT_T(KC_D)
+#define CTLF CTL_T(KC_F)
+
+#define CTLJ CTL_T(KC_J)
+#define ALTK ALT_T(KC_K)
+#define GUIL GUI_T(KC_L)
+#define SFTCLN CTL_T(KC_SCLN)
+
+#define OSLLYT OSL(_LAYOUT)
+#define DFQWER DF(_QWERTY)
+#define DFWRKM DF(_WRKMAN)
 
 #define ALLP ALT_T(KC_LBRC)
 #define SFRP SFT_T(KC_RBRC)
@@ -108,19 +121,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_QWERTY] = LAYOUT_ortho_4x12(
+  [_WRKMAN] = LAYOUT_ortho_4x12(
     KC_Q,    KC_D,    KC_R,   KC_W,    KC_B,    TDSTPR,  TDPLNX,  KC_J,    KC_F,    KC_U,    KC_P,    TDQMIN,
     SFTA,    GUIS,    ALTH,   CTLT,    KC_G,    KC_BRID, KC_BRIU, KC_Y,    CTLN,    ALTE,    GUIO,    SFTI,
     KC_Z,    KC_X,    KC_M,   KC_C,    KC_V,    KC_VOLD, KC_VOLU, KC_K,    KC_L,    TDCSCL,  TDDCL,   TDSLBS,
-    MAC_PL1, MAC_PL2, MSESC,  LOWDEL,  SHT_BSP, TGSTENO, MAC_STP, KC_SPC,  RAISENT, FNTAB,   MAC_RC1, MAC_RC2
+    MAC_PL1, MAC_PL2, MSESC,  LOWDEL,  SHT_BSP, OSLLYT,  MAC_STP, KC_SPC,  RAISENT, FNTAB,   MAC_RC1, MAC_RC2
   ),
 
-  [_STENO] = LAYOUT_ortho_4x12(
-    KC_Q,    KC_W,    KC_E,   KC_R,    KC_T,    _______, _______, KC_Y,    KC_I,    KC_O,    KC_P,    TDQMIN,
-    SFTA,    GUIS,    KC_D,   KC_F,    KC_G,    _______, _______, KC_H,    KC_J,    KC_K,    KC_L,    TDCSCL,
-    KC_Z,    KC_X,    KC_C,   KC_V,    KC_B,    _______, _______, KC_N,    KC_M,    TDCSCL,  TDDCL,   TDSLBS,
-    MAC_PL1, MAC_PL2, MSESC,  LOWDEL,  SHT_BSP, _______, _______, KC_SPC,  RAISENT, FNTAB,   MAC_RC1, MAC_RC2
+  [_QWERTY] = LAYOUT_ortho_4x12(
+    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    _______, _______, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
+    SFTA,    GUIS,    ALTD,    CTLF,    KC_G,    _______, _______, KC_H,    CTLJ,    ALTK,    GUIL,    SFTCLN,
+    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    _______, _______, KC_N,    KC_M,    TDCSCL,  TDDCL,   TDSLBS,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
   ),
+  
 
   [_LOWER] = LAYOUT_ortho_4x12(
     KC_GRV,  _______, KC_LPRN, KC_RPRN, _______, _______, _______, _______, KC_7,   KC_8,    KC_9,    KC_EQL,
@@ -148,5 +162,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LCTL, KC_LWIN, KC_LALT, KC_LSFT, _______, RGB_SAI, RGB_SAD, KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, KC_LCTL,
     _______, _______, _______, _______, _______, RGB_VAI, RGB_VAD, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, RGB_TOG, RGB_MOD, RGB_RMOD,KC_BTN1, KC_BTN2, _______, _______, _______
+  ),
+
+  [_LAYOUT] = LAYOUT_ortho_4x12(
+    DFWRKM,  DFQWER,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
   )
 };
