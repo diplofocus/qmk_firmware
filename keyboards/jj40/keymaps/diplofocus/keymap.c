@@ -2,6 +2,7 @@
 
 enum layers {
   _QWERTY,
+  _STENO,
   _LOWER,
   _RAISE,
   _FUNCT,
@@ -61,6 +62,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define SFTT     SFT_T(KC_T)
 #define SFTN     SFT_T(KC_N)
 
+#define TGSTENO  TO(_STENO)
+
 // Petar
 #define GUIS GUI_T(KC_S)
 #define ALTH ALT_T(KC_H)
@@ -109,7 +112,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_Q,    KC_D,    KC_R,   KC_W,    KC_B,    TDSTPR,  TDPLNX,  KC_J,    KC_F,    KC_U,    KC_P,    TDQMIN,
     SFTA,    GUIS,    ALTH,   CTLT,    KC_G,    KC_BRID, KC_BRIU, KC_Y,    CTLN,    ALTE,    GUIO,    SFTI,
     KC_Z,    KC_X,    KC_M,   KC_C,    KC_V,    KC_VOLD, KC_VOLU, KC_K,    KC_L,    TDCSCL,  TDDCL,   TDSLBS,
-    MAC_PL1, MAC_PL2, MSESC,  LOWDEL,  SHT_BSP, KC_TAB,  MAC_STP, KC_SPC,  RAISENT, FNTAB,   MAC_RC1, MAC_RC2
+    MAC_PL1, MAC_PL2, MSESC,  LOWDEL,  SHT_BSP, TGSTENO, MAC_STP, KC_SPC,  RAISENT, FNTAB,   MAC_RC1, MAC_RC2
+  ),
+
+  [_STENO] = LAYOUT_ortho_4x12(
+    KC_Q,    KC_W,    KC_E,   KC_R,    KC_T,    _______, _______, KC_Y,    KC_I,    KC_O,    KC_P,    TDQMIN,
+    SFTA,    GUIS,    KC_D,   KC_F,    KC_G,    _______, _______, KC_H,    KC_J,    KC_K,    KC_L,    TDCSCL,
+    KC_Z,    KC_X,    KC_C,   KC_V,    KC_B,    _______, _______, KC_N,    KC_M,    TDCSCL,  TDDCL,   TDSLBS,
+    MAC_PL1, MAC_PL2, MSESC,  LOWDEL,  SHT_BSP, _______, _______, KC_SPC,  RAISENT, FNTAB,   MAC_RC1, MAC_RC2
   ),
 
   [_LOWER] = LAYOUT_ortho_4x12(
