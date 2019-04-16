@@ -81,7 +81,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define CTLJ CTL_T(KC_J)
 #define ALTK ALT_T(KC_K)
 #define GUIL GUI_T(KC_L)
-#define SFTCLN CTL_T(KC_SCLN)
+#define SFTCLN SFT_T(KC_SCLN)
 
 #define OSLLYT OSL(_LAYOUT)
 #define DFQWER DF(_QWERTY)
